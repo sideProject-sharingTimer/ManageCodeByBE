@@ -1,0 +1,59 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.5'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id 'java'
+}
+
+group = 'com.sideProject'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //jpa
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    //security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+    //thymeleaf
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    //spring starter
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    //db
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    //lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    //spring test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    //jwt
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    //swagger
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    //실행 파라미터를 로그를 통해 직접 확인할 수 있다.
+    implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0'
+    //webSocket
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'io.lettuce:lettuce-core:6.1.5.RELEASE'
+    //gson
+    implementation 'com.google.code.gson:gson:2.9.0'
+
+
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
