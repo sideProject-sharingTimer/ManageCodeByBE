@@ -1,14 +1,18 @@
 package com.sideproject.sharingtimer.model;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
+@Builder
 @Getter
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "USER_TABLE")
 public class User extends TimeStamped {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,7 +22,7 @@ public class User extends TimeStamped {
     @Column(nullable = false, unique = true)
     private String username;
 
-    @Column(nullable = false)
+    @Column
     private String password;
 
     @Column(nullable = false, unique = true)

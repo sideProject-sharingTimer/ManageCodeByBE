@@ -22,6 +22,8 @@ public class Room extends TimeStamped {
     @Column(nullable = false)
     private String roomId; // UUID로 받을 예정
 
+    @Column(nullable = false)
+    private String roonName;
 
 
 }

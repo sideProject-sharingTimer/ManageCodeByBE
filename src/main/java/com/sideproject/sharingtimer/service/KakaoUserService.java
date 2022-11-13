@@ -1,10 +1,14 @@
 package com.sideproject.sharingtimer.service;
 
-import com.sideproject.sharingtimer.dto.KakaoUserInfoDto;
+import com.sideproject.sharingtimer.util.exception.ResponseDto;
+
 
 public interface KakaoUserService {
 
-    KakaoUserInfoDto kakaoLogin(String code) throws Exception;
+    /*
+     DESC : 카카오톡 로그인 테스트
+   */
+    ResponseDto kakaoLogin(String code) throws Exception;
 
 
 }
