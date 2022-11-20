@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @Getter
@@ -30,6 +32,9 @@ public class User extends TimeStamped {
 
     @Column(unique = true)
     private Long kakaoId;
+
+    @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
+    private List<Timer> timerList = new ArrayList<>();
 
     //카카오 유저정보를 받을 생성자 ,
     public User(String username, String password, String email,Long kakaoId) {

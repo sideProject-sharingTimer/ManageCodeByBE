@@ -7,28 +7,20 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-
 @Builder
 @Getter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Room extends TimeStamped {
+public class Timer {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
 
-    @Column(nullable = false)
-    private String roomId; // UUID로 받을 예정
-
-    @Column(nullable = false)
-    private String roonName;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "userId" , nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId",nullable = false)
     private User user;
-
 
 
 }
