@@ -8,4 +8,5 @@ public class MessageConstants {
 
     //방 관련 메시지 관리
     public static final String SUCCESS_CREATE_ROOM = "방 생성에 성공하셨습니다.";
+    public static final String SUCCESS_ENTER_ROOM = "방 입장에 성공하셨습니다.";
 }

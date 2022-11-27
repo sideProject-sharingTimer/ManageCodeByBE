@@ -98,11 +98,15 @@ public enum ErrorCode {
     //Room
 
     ALREADY_EXISTS_CHAT_ROOM(HttpStatus.BAD_REQUEST,"400","채팅방이 이미 존재합니다."),
-    NOT_EXIST_ROOM(HttpStatus.NOT_FOUND,"404","채팅방이 존재하지 않습니다."),
+    NOT_EXIST_ROOM(HttpStatus.NOT_FOUND,"404","유저가 입장하려는 방이 존재하지 않습니다."),
     FAIL_CREATE_ROOM(HttpStatus.INTERNAL_SERVER_ERROR,"500" , "방 생성에 실패하였습니다."),
+    FAIL_ENTER_ROOM(HttpStatus.INTERNAL_SERVER_ERROR,"500" , "서버 문제로 인한 방 입장에 실패하였습니다. "),
+    OVER_LIMIT_COUNT(HttpStatus.INTERNAL_SERVER_ERROR,"500" , "방 생성 제한 인원수를 초과하였습니다."),
 
-    //sse
-    NOT_EXIST_NOTIFICATION(HttpStatus.NOT_FOUND,"404","존재하지 않는 알림입니다.");
+
+    //timer
+    FAIL_RECORD_ST_TIME(HttpStatus.INTERNAL_SERVER_ERROR,"500" , "해당 유저의 시작 시간 저장에 실패하였습니다.."),
+    FAIL_RECORD_ED_TIME(HttpStatus.INTERNAL_SERVER_ERROR,"500" , "해당 유저의 정지 시간 저장에 실패하였습니다.");
 
 
 

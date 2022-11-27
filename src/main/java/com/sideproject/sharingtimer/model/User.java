@@ -1,6 +1,5 @@
 package com.sideproject.sharingtimer.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,6 +32,7 @@ public class User extends TimeStamped {
     @Column(unique = true)
     private Long kakaoId;
 
+    @Builder.Default
     @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL)
     private List<Timer> timerList = new ArrayList<>();
 
@@ -42,7 +42,6 @@ public class User extends TimeStamped {
         this.password = password;
         this.email = email;
         this.kakaoId = kakaoId;
-
     }
 
 

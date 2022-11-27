@@ -27,8 +27,7 @@ public class UserController {
     @ApiParam(value = "code" , example = "발급받은 인가코드" , required = true)
     public ResponseEntity<Object> kakaoLogin(@RequestParam String code) throws Exception {
         logger.info("[kakaoLogin] checkParam:" + code );
-        ResponseDto responseDto = new ResponseDto();
-        responseDto = kakaoUserService.kakaoLogin(code);
+        ResponseDto responseDto = kakaoUserService.kakaoLogin(code);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }

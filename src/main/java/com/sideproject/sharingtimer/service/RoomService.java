@@ -14,5 +14,9 @@ public interface RoomService {
      DESC : 방 목록 조회
    */
     ResponseDto selectRoomList() throws Exception;
+    /*
+     DESC : 방 목록 조회
+   */
+    ResponseDto enterRoom(UserDetailsImpl userDetails, String roomId) throws Exception;
 
 }
