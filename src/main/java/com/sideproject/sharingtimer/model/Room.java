@@ -31,7 +31,7 @@ public class Room extends TimeStamped {
     private int limitCnt;
 
     @Builder.Default
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn
     private List<User> userList = new ArrayList<>();
 
