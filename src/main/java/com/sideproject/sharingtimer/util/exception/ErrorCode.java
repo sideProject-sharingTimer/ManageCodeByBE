@@ -103,11 +103,10 @@ public enum ErrorCode {
     FAIL_ENTER_ROOM(HttpStatus.INTERNAL_SERVER_ERROR,"500" , "서버 문제로 인한 방 입장에 실패하였습니다. "),
     OVER_LIMIT_COUNT(HttpStatus.INTERNAL_SERVER_ERROR,"500" , "방 생성 제한 인원수를 초과하였습니다."),
 
-
     //timer
     FAIL_RECORD_ST_TIME(HttpStatus.INTERNAL_SERVER_ERROR,"500" , "해당 유저의 시작 시간 저장에 실패하였습니다.."),
-    FAIL_RECORD_ED_TIME(HttpStatus.INTERNAL_SERVER_ERROR,"500" , "해당 유저의 정지 시간 저장에 실패하였습니다.");
-
+    FAIL_RECORD_ED_TIME(HttpStatus.INTERNAL_SERVER_ERROR,"500" , "해당 유저의 정지 시간 저장에 실패하였습니다."),
+    NOT_FOUND_TIMER_BY_USER(HttpStatus.INTERNAL_SERVER_ERROR, "500", "해당 유저가 가진 시간 정보를 찾지 못하였습니다.");
 
 
     private final HttpStatus status;

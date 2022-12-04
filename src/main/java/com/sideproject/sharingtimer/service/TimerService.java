@@ -11,7 +11,7 @@ public interface TimerService {
     ResponseDto recordStTime(UserDetailsImpl userDetails, String roomId) throws Exception;
 
     /*
-     DESC : 정지 시간 저장
+     DESC : 업데이트 (정지 및 재시작) 시간 저장 , 누적시간
    */
-    ResponseDto recordEdTime(UserDetailsImpl userDetails, String roomId) throws Exception;
+    ResponseDto recordUtTime(UserDetailsImpl userDetails, String roomId, String asTime) throws Exception;
 }

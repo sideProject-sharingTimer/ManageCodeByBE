@@ -24,16 +24,28 @@ public class Timer {
     @Column(name = "userId", nullable = false)
     private Long userId;
     @Column
-    private String stTime;  // 시작 시간
+    private String stTime;  // 최초 시작 시간 (년/일/월/시)
     @Column
-    private String edTime;  // 정지 시간
+    private String utTime;  // 업데이트 (재시작 및 정지 시간)
+    @Column
+    private String asTime;  // 누적된 시간
+    @Column
+    private String status;  // 시간 동작 상태
 
-    public void updateStTime(String stTime){
+    public void recordStTime(String stTime){
         this.stTime = stTime;
     }
 
-    public void updateEdTime(String edTime){
-        this.edTime = edTime;
+    public void updateUtTime(String edTime){
+        this.utTime = edTime;
+    }
+
+    public void updateAsTime(String asTime){
+        this.asTime = asTime;
+    }
+
+    public void updateStatus(String status){
+        this.status = status;
     }
 
 }

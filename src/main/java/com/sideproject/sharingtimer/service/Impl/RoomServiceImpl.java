@@ -3,11 +3,13 @@ package com.sideproject.sharingtimer.service.Impl;
 import com.sideproject.sharingtimer.dto.RoomRequestDto;
 import com.sideproject.sharingtimer.dto.RoomResponseDto;
 import com.sideproject.sharingtimer.model.Room;
+import com.sideproject.sharingtimer.model.Timer;
 import com.sideproject.sharingtimer.model.User;
 import com.sideproject.sharingtimer.repository.RoomRepository;
 import com.sideproject.sharingtimer.security.UserDetailsImpl;
 import com.sideproject.sharingtimer.service.RoomService;
 import com.sideproject.sharingtimer.util.constants.MessageConstants;
+import com.sideproject.sharingtimer.util.constants.StringConstants;
 import com.sideproject.sharingtimer.util.exception.CustomException;
 import com.sideproject.sharingtimer.util.exception.ErrorCode;
 import com.sideproject.sharingtimer.util.exception.ResponseDto;
@@ -115,6 +117,16 @@ public class RoomServiceImpl implements RoomService {
                 responseDto.setErrorCode(new CustomException(ErrorCode.NOT_FOUND_USER_INFO));
                 return responseDto;
             }
+            //해당유저에게 최초 시간설정을 한다.
+            Timer timer = Timer.builder()
+                    .userId(user.getId())
+                    .roomId(roomId)
+                    .stTime(StringConstants.TIMER_INIT)
+                    .utTime(StringConstants.TIMER_INIT)
+                    .status(StringConstants.TIMER_STOP)
+                    .build();
+
+            user.updateTimerList(timer);
 
             // 유저가 입장하려는 방에 대한 정보를 가져온다.
             Room room = roomRepository.findByRoomId(roomId).orElseThrow(
@@ -124,6 +136,8 @@ public class RoomServiceImpl implements RoomService {
             room.updateUserList(user);
             // 인원수 증가 후 , 유저 리스트의 사이즈가 제한 수를 넘는다면 예외 처리
             room.checkLimitCnt(room.getUserList().size());
+            // 방 -> 유저 정보 -> 유저정보 (시간)
+            responseDto.setData(room);
             responseDto.setMsg(MessageConstants.SUCCESS_ENTER_ROOM);
 
         }catch (Exception e){

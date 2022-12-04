@@ -6,9 +6,7 @@ import com.sideproject.sharingtimer.security.UserDetailsImpl;
 import com.sideproject.sharingtimer.service.RoomService;
 import com.sideproject.sharingtimer.service.TimerService;
 import com.sideproject.sharingtimer.util.exception.ResponseDto;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,9 +36,12 @@ public class TimerController {
 
     @PostMapping("/stop")
     @ApiOperation(value = "시간 정지" , notes = "타이머 정지시간을 저장한다.")
-    @ApiParam(value = "roomId" , example = "방의 고유번호" , required = true)
-    public ResponseEntity<Object> recordEdTime(@AuthenticationPrincipal UserDetailsImpl userDetails,@RequestParam String roomId) throws Exception{
-        ResponseDto responseDto = timerService.recordEdTime(userDetails,roomId);
+    @ApiImplicitParams({
+            @ApiImplicitParam(value = "roomId", example = "방의 고유번호", required = true),
+            @ApiImplicitParam(value = "asTime", example = "해당 유저의 누적된 시간", required = true)
+    })
+    public ResponseEntity<Object> recordEdTime(@AuthenticationPrincipal UserDetailsImpl userDetails,@RequestParam String roomId ,@RequestParam String asTime) throws Exception{
+        ResponseDto responseDto = timerService.recordUtTime(userDetails,roomId,asTime);
         return new ResponseEntity<>(responseDto , HttpStatus.OK);
     }
 
