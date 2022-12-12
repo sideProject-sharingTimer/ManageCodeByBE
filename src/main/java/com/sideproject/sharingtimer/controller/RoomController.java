@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,8 +36,8 @@ public class RoomController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    @PostMapping("/enter")
-    @ApiOperation(value = "방 입장" , notes = "선택한 방에 입장한다.")
+    @MessageMapping("/enter")
+    @ApiOperation(value = "방 입장" , notes = "선택한 방에 입장하며 시간을 공유한다 (redis pub/sub).")
     @ApiParam(value = "roomId" , example = "방의 고유번호" , required = true)
     public ResponseEntity<Object> enterRoom(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam String roomId) throws Exception{
         ResponseDto responseDto = roomService.enterRoom(userDetails,roomId);

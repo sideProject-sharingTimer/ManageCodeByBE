@@ -1,5 +1,6 @@
 package com.sideproject.sharingtimer.service.Impl;
 
+import com.sideproject.sharingtimer.dto.RoomEnterResponseDto;
 import com.sideproject.sharingtimer.dto.RoomRequestDto;
 import com.sideproject.sharingtimer.dto.RoomResponseDto;
 import com.sideproject.sharingtimer.model.Room;
@@ -13,6 +14,7 @@ import com.sideproject.sharingtimer.util.constants.StringConstants;
 import com.sideproject.sharingtimer.util.exception.CustomException;
 import com.sideproject.sharingtimer.util.exception.ErrorCode;
 import com.sideproject.sharingtimer.util.exception.ResponseDto;
+import com.sideproject.sharingtimer.util.redis.RedisPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -29,6 +31,7 @@ import java.util.UUID;
 public class RoomServiceImpl implements RoomService {
 
     private final RoomRepository roomRepository;
+    private final RedisPublisher redisPublisher;
 
     private static final Logger logger = LoggerFactory.getLogger(RoomServiceImpl.class);
 
@@ -106,6 +109,7 @@ public class RoomServiceImpl implements RoomService {
     @Transactional
     public ResponseDto enterRoom(UserDetailsImpl userDetails, String roomId) throws Exception {
         ResponseDto responseDto = new ResponseDto();
+        RoomEnterResponseDto roomEnterResponseDto = new RoomEnterResponseDto();
 
         try {
             //입장하는 유저
@@ -137,7 +141,13 @@ public class RoomServiceImpl implements RoomService {
             // 인원수 증가 후 , 유저 리스트의 사이즈가 제한 수를 넘는다면 예외 처리
             room.checkLimitCnt(room.getUserList().size());
             // 방 -> 유저 정보 -> 유저정보 (시간)
-            responseDto.setData(room);
+            roomEnterResponseDto = RoomEnterResponseDto.builder()
+                    .roomId(roomId)
+                    .roomName(room.getRoomName())
+                    .userTimerList(room.getUserList())
+                    .build();
+
+
             responseDto.setMsg(MessageConstants.SUCCESS_ENTER_ROOM);
 
         }catch (Exception e){
@@ -145,6 +155,7 @@ public class RoomServiceImpl implements RoomService {
             throw new CustomException(ErrorCode.FAIL_ENTER_ROOM);
         }
 
+        redisPublisher.publish(roomId , roomEnterResponseDto);
         return responseDto;
     }
 }
